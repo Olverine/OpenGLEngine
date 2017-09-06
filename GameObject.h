@@ -12,6 +12,7 @@ class GameObject
 {
 public:
 	GameObject();
+	GameObject(std::string name);
 	~GameObject();
 
 	void addComponent(Component*);
@@ -34,6 +35,8 @@ public:
 	glm::vec3 getUp();
 
 	void setPosition(float x, float y, float z);
+
+	std::string name = "Game object";
 
 	std::vector<Component*> components;
 

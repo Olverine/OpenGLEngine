@@ -124,7 +124,7 @@ static void checkShaderError(GLuint shader, GLuint flag, bool isProgram, char* e
 			glGetShaderInfoLog(shader, sizeof(error), NULL, error);
 		}
 
-		printError(strcat(errorMessage, error));
+		printError(error);
 	}
 	else {
 		printSuccess(successMessage.c_str());

@@ -45,7 +45,7 @@
     <ClCompile Include="CameraFly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LuaComponent.cpp">
+    <ClCompile Include="Terrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,7 +80,7 @@
     <ClInclude Include="CameraFly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LuaComponent.h">
+    <ClInclude Include="Terrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

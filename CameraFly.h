@@ -10,7 +10,11 @@ public:
 
 	void update(float);
 
-	float velocity = 1.0f;
-	float sensitivity = 1.0;
+	float velocity = 10.0f;
+	float sensitivity = 100.0;
+
+private:
+	float angleHor = 0;
+	float angleVert = 0;
 };
 

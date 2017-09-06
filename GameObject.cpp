@@ -1,10 +1,18 @@
 #include "GameObject.h"
 #include "Mesh.h"
+#include <gtc/quaternion.hpp>
+#include <gtx/quaternion.hpp>
+#include <common.hpp>
 
 
 
 GameObject::GameObject()
 {
+}
+
+GameObject::GameObject(std::string name)
+{
+	this->name = name;
 }
 
 
@@ -20,13 +28,8 @@ void GameObject::addComponent(Component* component)
 
 glm::mat4 GameObject::getModel()
 {
-	glm::mat4 translationMat = glm::translate(glm::mat4(1.0f), position);
-	glm::mat4 rotXMat = glm::rotate(glm::mat4(1.0f), rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	glm::mat4 rotYMat = glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 rotZMat = glm::rotate(glm::mat4(1.0f), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-	glm::mat4 rotationMat = rotZMat * rotXMat * rotYMat;
-	glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), scale);
-	return translationMat * rotationMat * scaleMat;
+	glm::quat objRot = glm::quat(glm::vec3(glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z)));
+	return glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), scale) * toMat4(objRot);
 }
 
 glm::vec3 GameObject::getForward()

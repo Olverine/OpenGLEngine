@@ -13,7 +13,7 @@
 #include "JoystickRotator.h"
 #include "Input.h"
 #include "CameraFly.h"
-#include "LuaComponent.h"
+#include "Terrain.h"
 
 using namespace std;
 using namespace glm;
@@ -21,9 +21,15 @@ using namespace glm;
 std::vector<GameObject*> objects;
 
 int main(int argc, char* argv[]) {
-	Display display(800, 600, "Game");
+	Display display(1366, 768, "Game");
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 
 	Shader shader("shaders/basic");
+	shader.setColor(glm::vec3(1, 0, 1));
 
 	Vertex vertices[] = {
 		glm::vec3(-1,-1,0),
@@ -41,13 +47,21 @@ int main(int argc, char* argv[]) {
 	mesh.setShader(&shader);
 
 	GameObject* triangle = new GameObject();
+	triangle->name = "Triangle";
 	triangle->addComponent(&mesh);
-	triangle->addComponent(new LuaComponent("script.lua"));
 	
 	JoystickRotator rot = JoystickRotator();
 	triangle->addComponent(&rot);
 
 	objects.push_back(triangle);
+
+	GameObject* terrain = new GameObject();
+	Terrain* terrainComp = new Terrain("resources/heightmap/1.bmp");
+	terrainComp->setShader(new Shader("shaders/terrain"));
+	terrain->scale.y = 0.2f;
+	terrain->addComponent(terrainComp);
+	objects.push_back(terrain);
+	
 
 	float now;
 	float prev;
@@ -60,13 +74,13 @@ int main(int argc, char* argv[]) {
 
 		float deltaTime = (now - prev) / 1000;
 		if (deltaTime == 0) {
-			deltaTime = 0.00001f;
+			//deltaTime = 0.0001f;
 		}else if(deltaTime > 1000){
 			deltaTime = 0;
 		}
 
 		glClearColor(0.0f, 0.1f, 0.2f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Update gamepad states
 		Input::update();

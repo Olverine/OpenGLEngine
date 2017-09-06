@@ -18,6 +18,10 @@ Mesh::Mesh(Vertex* vertices, unsigned int numVertices)
 	glBindVertexArray(0);
 }
 
+Mesh::Mesh()
+{
+}
+
 Mesh::~Mesh()
 {
 	glDeleteVertexArrays(1, &vertexArrayObject);
