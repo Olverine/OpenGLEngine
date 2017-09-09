@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <SDL.h>
+#include <stdint.h>
 
 class Display
 {
@@ -12,9 +13,12 @@ public:
 	bool isClosed();
 
 private:
-	SDL_Window* window;
-	SDL_GLContext context;
 
 	bool closed;
 };
 
+Uint32 getMouseState(int*, int*);
+void setMousePosition(int, int);
+
+int getWindowWidth();
+int getWindowHeight();
