@@ -5,6 +5,12 @@
 
 using namespace std;
 
+SDL_Window* window;
+SDL_GLContext context;
+
+int windowWidth;
+int windowHeight;
+
 Display::Display(int width, int height, const std::string& title)
 {
 	cout << "Initializing SDL: ";
@@ -51,6 +57,27 @@ Display::~Display()
 
 bool Display::isClosed() {
 	return closed;
+}
+
+Uint32 getMouseState(int* x, int* y)
+{
+	return SDL_GetMouseState(x, y);
+}
+
+void setMousePosition(int x, int y)
+{
+	SDL_WarpMouseInWindow(window, x, y);
+}
+
+int getWindowWidth()
+{
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+	return windowWidth;
+}
+
+int getWindowHeight() {
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+	return windowHeight;
 }
 
 void Display::swapBuffers() {

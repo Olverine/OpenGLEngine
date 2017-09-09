@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
 
 		float deltaTime = (now - prev) / 1000;
 		if (deltaTime == 0) {
-			//deltaTime = 0.0001f;
+			deltaTime = 0.001f;
 		}else if(deltaTime > 1000){
 			deltaTime = 0;
 		}

@@ -12,4 +12,5 @@ namespace Input {
 	float getRightStickX(int);
 	float getRightStickY(int);
 	bool getButton(int, DWORD);
+	glm::vec2 getMouseDelta();
 }

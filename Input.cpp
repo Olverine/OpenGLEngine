@@ -2,12 +2,15 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <SDL.h>
+#include "Display.h"
 
 bool prevConnectionStates[4];
 bool connectionStates[4];
 XINPUT_STATE prevGamepadStates[4];
 XINPUT_STATE gamepadStates[4];
 
+DWORD prevButtonStates[4];
 DWORD buttonStates[4];
 float jlx[4];
 float jly[4];
@@ -16,8 +19,20 @@ float jry[4];
 float tl[4];
 float tr[4];
 
+UINT32 mouseState;
+
+int mouseX;
+int mouseY;
+
 void Input::update()
 {
+	// Get mouse state
+	mouseState = getMouseState(&mouseX, &mouseY);
+	mouseX -= getWindowWidth() / 2;
+	mouseY -= getWindowHeight() / 2;
+	setMousePosition(getWindowWidth() / 2, getWindowHeight() / 2);
+
+	// Get gamepad state 
 	DWORD dwResult;
 	for (DWORD i = 0; i< XUSER_MAX_COUNT; i++)
 	{
@@ -112,4 +127,10 @@ float Input::getRightStickY(int id)
 bool Input::getButton(int id, DWORD button)
 {
 	return (buttonStates[id] & button) == button;
+}
+
+glm::vec2 Input::getMouseDelta() {
+	float x = mouseX;
+	float y = mouseY;
+	return glm::vec2(x, y);
 }
