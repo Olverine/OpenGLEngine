@@ -111,5 +111,5 @@ float Input::getRightStickY(int id)
 
 bool Input::getButton(int id, DWORD button)
 {
-	return buttonStates[id] & button != 0;
+	return (buttonStates[id] & button) == button;
 }
