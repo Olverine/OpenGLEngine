@@ -7,7 +7,7 @@
 
 #include "Display.h"
 #include "Mesh.h"
-#include "Shader.h"
+#include "TerrainShader.h"
 #include "Engine.h"
 #include "Camera.h"
 #include "JoystickRotator.h"
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 
 	Shader shader("shaders/basic");
 	shader.setColor(glm::vec3(1, 1, 1));
-	GLuint texture = loadTexture(1024, 1024, 3, "resources/textures/grass.jpg");
+	GLuint texture = loadTexture(1024, 1024, 3, "resources/textures/tex1.bmp");
 
 	Vertex vertices[] = {
 		Vertex(glm::vec3(-1,-1,0), glm::vec2(0.0f, 0.0f)),
@@ -59,7 +59,10 @@ int main(int argc, char* argv[]) {
 
 	GameObject* terrain = new GameObject();
 	Terrain* terrainComp = new Terrain("resources/heightmap/1.bmp");
-	terrainComp->setShader(new Shader("shaders/terrain"));
+	TerrainShader terrainShader = TerrainShader();
+	terrainShader.grassTextureId = loadTexture(1024, 1024, 3, "resources/textures/grass.jpg");
+	terrainShader.cliffTextureId = loadTexture(1024, 1024, 3, "resources/textures/rock.jpg");
+	terrainComp->setShader(&terrainShader);
 	terrain->scale.y = 0.2f;
 	terrain->addComponent(terrainComp);
 	objects.push_back(terrain);

@@ -48,6 +48,7 @@ public:
 	Mesh();
 	~Mesh();
 	void draw(glm::mat4 view, glm::mat4 projection);
+	void update(float deltaTime);
 	void setShader(Shader* newShader);
 	Shader* getShader();
 protected:

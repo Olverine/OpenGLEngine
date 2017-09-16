@@ -22,8 +22,7 @@ Shader::Shader(const std::string& dir)
 		glAttachShader(program, shaders[i]);
 	}
 
-	glBindAttribLocation(program, 0, "position");
-	glBindAttribLocation(program, 1, "uv");
+	bindAttributes();
 
 	std::cout << "Linking program: ";
 	glLinkProgram(program);
@@ -33,8 +32,7 @@ Shader::Shader(const std::string& dir)
 	glValidateProgram(program);
 	checkShaderError(program, GL_VALIDATE_STATUS, true, "ERROR: Invalid shader program", "OK!");
 
-	uniforms[TRANSFORM_U] = glGetUniformLocation(program, "mvp");
-	uniforms[COLOR_U] = glGetUniformLocation(program, "color");
+	getUniforms();
 
 	std::cout << std::endl;
 }
@@ -84,6 +82,22 @@ void Shader::setMvp(glm::mat4 mvp) {
 
 void Shader::setColor(glm::vec3 color) {
 	glUniform3fv(uniforms[COLOR_U], 1, &color[0]);
+}
+
+void Shader::update(float deltaTime)
+{
+}
+
+void Shader::bindAttributes()
+{
+	glBindAttribLocation(program, 0, "position");
+	glBindAttribLocation(program, 1, "uv");
+}
+
+void Shader::getUniforms()
+{
+	uniforms[TRANSFORM_U] = glGetUniformLocation(program, "mvp");
+	uniforms[COLOR_U] = glGetUniformLocation(program, "color");
 }
 
 static std::string loadShader(const char* filename) {

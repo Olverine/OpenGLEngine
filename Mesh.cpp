@@ -59,6 +59,11 @@ void Mesh::draw(glm::mat4 view, glm::mat4 projection) {
 	glBindVertexArray(0);
 }
 
+void Mesh::update(float deltaTime)
+{
+	shader->update(deltaTime);
+}
+
 void Mesh::setShader(Shader* newShader)
 {
 	shader = newShader;

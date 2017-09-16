@@ -15,13 +15,19 @@ public:
 	void setMvp(glm::mat4 mvp);
 	void setColor(glm::vec3 color);
 
-private:
+	virtual void update(float deltaTime);
+
+protected:
 	enum {
 		TRANSFORM_U,
 		COLOR_U,
 
 		NUM_UNIFORMS
 	};
+
+	virtual void bindAttributes();
+
+	virtual void getUniforms();
 
 	static const int NUM_SHADERS = 2;
 	GLuint program;
