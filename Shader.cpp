@@ -23,6 +23,7 @@ Shader::Shader(const std::string& dir)
 	}
 
 	glBindAttribLocation(program, 0, "position");
+	glBindAttribLocation(program, 1, "uv");
 
 	std::cout << "Linking program: ";
 	glLinkProgram(program);

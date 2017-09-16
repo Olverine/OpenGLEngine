@@ -1,5 +1,6 @@
 #include "Terrain.h"
 #include "Engine.h"
+#include <vector>
 
 Terrain::~Terrain()
 {
@@ -22,11 +23,15 @@ Vertex* Terrain::createFromBmp(char* filename)
 	fclose(f);
 
 	Vertex* vertices = new Vertex[size];
+	//std::vector<Vertex> vertices;
+	//vertices.reserve(size);
 
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++) {
 			vertices[y * width + x].setPos(x, data[y * width * 3 + (x*3)], y);
+			vertices[y * width + x].setUV(x,y);
+			//vertices.push_back(Vertex(glm::vec3(x, data[y * width * 3 + (x * 3)], y), glm::vec2(x, y)));
 			if (x > 0 && y > 0) {
 				indices.push_back(y * width + x);
 				indices.push_back(y * width + x-1);
@@ -39,7 +44,7 @@ Vertex* Terrain::createFromBmp(char* filename)
 		}
 	}
 
-	return vertices;
+	return &vertices[0];
 }
 
 void Terrain::draw(glm::mat4 view, glm::mat4 projection) {

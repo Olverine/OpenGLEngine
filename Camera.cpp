@@ -29,5 +29,5 @@ glm::mat4 Camera::getView()
 
 glm::mat4 Camera::getProjection()
 {
-	return glm::perspective(fov, 16.0f / 9.0f, nearClip, farClip);
+	return glm::perspective(fov, 1366.0f / 768.0f, nearClip, farClip);
 }

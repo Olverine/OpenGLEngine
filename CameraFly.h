@@ -13,6 +13,8 @@ public:
 	float velocity = 10.0f;
 	float sensitivity = 100.0;
 
+	int controllerId = 0;
+
 private:
 	float angleHor = 0;
 	float angleVert = 0;

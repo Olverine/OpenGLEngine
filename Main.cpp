@@ -14,6 +14,7 @@
 #include "Input.h"
 #include "CameraFly.h"
 #include "Terrain.h"
+#include "TextureLoader.h"
 
 using namespace std;
 using namespace glm;
@@ -29,12 +30,13 @@ int main(int argc, char* argv[]) {
 	glDepthFunc(GL_LESS);
 
 	Shader shader("shaders/basic");
-	shader.setColor(glm::vec3(1, 0, 1));
+	shader.setColor(glm::vec3(1, 1, 1));
+	GLuint texture = loadTexture(1024, 1024, 3, "resources/textures/grass.jpg");
 
 	Vertex vertices[] = {
-		glm::vec3(-1,-1,0),
-		glm::vec3(0,1,0),
-		glm::vec3(1,-1,0)
+		Vertex(glm::vec3(-1,-1,0), glm::vec2(0.0f, 0.0f)),
+		Vertex(glm::vec3(0,1,0), glm::vec2(0.5f, 1.0f)),
+		Vertex(glm::vec3(1,-1,0), glm::vec2(1.0f ,0.0f))
 	};
 
 	GameObject* cam = new GameObject();

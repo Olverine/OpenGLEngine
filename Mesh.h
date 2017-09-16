@@ -6,23 +6,39 @@
 
 class Vertex{
 public:
-	Vertex(const glm::vec3& pos) {
+	Vertex(const glm::vec3& pos, const glm::vec2& uv) {
 		this->pos = pos;
-	}
-	Vertex(float x, float y, float z) {
-		this->pos = glm::vec3(x,y,z);
+		this->uv = uv;
 	}
 	Vertex() {
-		this->pos = glm::vec3(0, 0, 0);
+		this->pos = glm::vec3(0);
+		this->uv = glm::vec2(0);
 	}
+
 	void setPos(const glm::vec3& pos) {
 		this->pos = pos;
 	}
 	void setPos(float x, float y, float z){
 		this->pos = glm::vec3(x, y, z);
 	}
+
+	void setUV(const glm::vec2& uv) {
+		this->uv = uv;
+	}
+	void setUV(float x, float y) {
+		this->uv = glm::vec2(x, y);
+	}
+
+	glm::vec3 getPosition() {
+		return pos;
+	}
+
+	glm::vec2 getTexCoord() {
+		return uv;
+	}
 private:
 	glm::vec3 pos;
+	glm::vec2 uv;
 };
 
 class Mesh : public Component
@@ -39,6 +55,7 @@ protected:
 
 	enum {
 		POSITION_VB,
+		UV_VB,
 
 		NUM_BUFFERS
 	};
